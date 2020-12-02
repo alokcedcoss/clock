@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.watch {
+  width: 300px;
+  height: 300px;
+  background-color: black;
+  border-radius: 50%;
+  border: 10px inset black;
+  position: relative;
+  margin-top: 10%;
+  margin-left: 35%;
+}
+
+.watch .t {
+  --rotation: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform: rotate(var(--rotation));
+  font-size: 1.5rem;
+}
+.watch::after {
+  content: '';
+  position: absolute;
+  z-index: 11;
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.watch .hand.second {
+  width: 3px;
+  height: 45%;
+  background-color: red;
+}
+
+.watch .hand.minute {
+  width: 7px;
+  height: 40%;
+  background-color: black;
+}
+
+.watch .hand.hour {
+  width: 10px;
+  height: 35%;
+  background-color: black;
+}
+
+.watch .n1 
+{ --rotation: 30deg; 
+}
+.watch .n2 
+{ --rotation: 60deg; 
+}
+.watch .n3 
+{ --rotation: 90deg; 
+}
+.watch .n4
+ { --rotation: 120deg;
+  }
+.watch .n5 
+
+{ --rotation: 150deg; 
+}
+.watch .n6 
+{ --rotation: 180deg; 
+}
+.watch .n7 
+{ --rotation: 210deg; 
+}
+.watch .n8 
+{ --rotation: 240deg; 
+}
+.watch .n9 
+{ --rotation: 270deg; 
+
+}
+.watch .n10 
+{ --rotation: 300deg;
+ }
+.watch .n11 
+{ --rotation: 330deg; 
+}
+
+.watch .hand {
+  --rotation: 0;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  border: 1px solid white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transform-origin: bottom;
+  z-index: 10;
+  transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+}
+
+.watch::after {
+  content: '';
+  position: absolute;
+  background-color: white;
+  z-index: 11;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.watch .hand.second {
+  width: 3px;
+  height: 40%;
+  background-color: red;
+}
+
+.watch .hand.minute {
+  width: 7px;
+  height: 34%;
+  background-color: black;
+}
+
+.watch .hand.hour {
+  width: 10px;
+  height: 24%;
+  background-color: black;
+}
+.text1{
+	font-size: 32px;
+	color:#d80000;
+	font-weight: bold;
+
+}
+	</style>
+	<title></title>
+</head>
+<body style="background-image: url('wallclock.jpg'); background-size: cover;background-repeat: no-repeat; height: 100vh;">
+  <div class="watch" style=" border: 1px solid;
+
+  box-shadow: 5px 10px 25px 15px #888888;">
+    <div class="hand hour" data-hour-hand></div>
+    <div class="hand minute" data-minute-hand></div>
+    <div class="hand second" data-second-hand></div>
+    <div class="t n1 text1">|</div>
+    <div class="t n2 text1">|</div>
+    <div class="t n3 text1">||</div>
+    <div class="t n4 text1">|</div>
+    <div class="t n5 text1">|</div>
+    <div class="t n6 text1">||</div>
+    <div class="t n7 text1">|</div>
+    <div class="t n8 text1">|</div>
+    <div class="t n9 text1">||</div>
+    <div class="t n10 text1">|</div>
+    <div class="t n11 text1">|</div>
+    <div class="t n12 text1">||</div>
+    <div style="color:white; margin-top:15%;margin-left: 35%; font-size: 35px;"><img src="sonata-watch.png" alt="Logo" height="60px" width="100px"></div>
+    <div id="digital" style="color:white; margin-top:32%;margin-left: 30%; font-size: 35px;">time:</div>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+	setInterval(setClock, 1000)
+
+const hourHand = document.querySelector('[data-hour-hand]')
+const minuteHand = document.querySelector('[data-minute-hand]')
+const secondHand = document.querySelector('[data-second-hand]')
+
+function setClock() {
+  const cd = new Date()
+  const secondsRatio = cd.getSeconds() / 60
+  const minutesRatio = (secondsRatio + cd.getMinutes()) / 60
+  const hoursRatio = (minutesRatio + cd.getHours()) / 12
+  setRotation(secondHand, secondsRatio)
+  setRotation(minuteHand, minutesRatio)
+  setRotation(hourHand, hoursRatio)
+
+  document.getElementById('digital').innerHTML=(cd.getHours()+":"+cd.getMinutes()+":"+cd.getSeconds());
+}
+
+function setRotation(element, rotationRatio) {
+  element.style.setProperty('--rotation', rotationRatio * 360)
+}
+
+setClock()
+</script>
+</body>
+</html>
